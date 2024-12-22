@@ -20,7 +20,7 @@ jobs:
     
     - name: Get changed files
       id: changed-files
-      uses: technote-space/get-diff-action@v7
+      uses: technote-space/get-diff-action@v4
       with:
         PATTERNS: |
           **/*.mmd
