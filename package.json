@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "gen": "mmdc -i ./docs/*.mmd --icons logo"
+    "gen": "mmdc -i ./docs/*.mmd --icons logos mdi"
   },
   "keywords": [],
   "author": "",

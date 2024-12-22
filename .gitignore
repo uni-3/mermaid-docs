@@ -1,1 +1,4 @@
 node_modules/
+
+*.svg
+!docs/auto_generated/*.svg
