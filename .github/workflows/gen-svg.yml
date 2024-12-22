@@ -11,6 +11,8 @@ on:
 jobs:
   generate-diagrams:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       ICON_PACKAGES: '["logos", "mdi"]'
     
