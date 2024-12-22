@@ -61,3 +61,4 @@ jobs:
       with:
         commit_message: Generate Mermaid diagrams for changed files
         file_pattern: '**/*.svg'
+        pull_style: rebase
