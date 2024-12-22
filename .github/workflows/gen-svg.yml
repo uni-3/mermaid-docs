@@ -40,7 +40,7 @@ jobs:
       # env:
       #   CHANGED_FILES: ${{ steps.changed-files.outputs.files }}
       run: |
-        ICONS=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '.[] | "--icons " + .' | tr '\n' ' ')
+        ICONS=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | join(" ")' | sed 's/^/--icons /')
         CHANGED_FILES=${{ env.GIT_DIFF_FILTERED }}
 
         if [ -n "CHANGED_FILES" ]; then
