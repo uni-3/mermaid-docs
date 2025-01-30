@@ -43,7 +43,7 @@ jobs:
         CHANGED_FILES=${{ env.GIT_DIFF_FILTERED }}
 
         if [ -n "CHANGED_FILES" ]; then
-          echo "Generating diagrams for changed files: CHANGED_FILES"
+          echo "Generating diagrams for changed files: $CHANGED_FILES"
           for file in $CHANGED_FILES; do
             output_file=$(echo "$file" | sed 's/\.mmd$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
