@@ -2,12 +2,10 @@ name: Generate Mermaid Diagrams
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '**.mmd'
   pull_request:
     paths:
       - '**.mmd'
+      - '.github/workflows/gen-svg.yml'
 
 jobs:
   generate-diagrams:
@@ -15,7 +13,7 @@ jobs:
     permissions:
       contents: write
     env:
-      ICON_PACKAGES: '["logos", "mdi"]'
+      ICON_PACKAGES: '["@iconify-json/logos", "@iconify-json/mdi"]'
     
     steps:
     - name: Checkout repository
@@ -41,7 +39,7 @@ jobs:
       # env:
       #   CHANGED_FILES: ${{ steps.changed-files.outputs.files }}
       run: |
-        ICONS=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | join(" ")' | sed 's/^/--icons /')
+        ICONS=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | join(" ")' | sed 's/^/--iconPacks /')
         CHANGED_FILES=${{ env.GIT_DIFF_FILTERED }}
 
         if [ -n "CHANGED_FILES" ]; then
