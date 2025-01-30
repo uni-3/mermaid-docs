@@ -1,9 +1,9 @@
 name: Generate Mermaid Diagrams
 
 on:
-  # push:
-  #   paths:
-  #     - '**.mmd'
+  push:
+    paths:
+      - '**.mmd'
   pull_request:
     paths:
       - '**.mmd'
