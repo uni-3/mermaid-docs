@@ -44,11 +44,12 @@ jobs:
 
         if [ -n "CHANGED_FILES" ]; then
           echo "Generating diagrams for changed files: $CHANGED_FILES"
+          echo "with icons for archtecture diagrams: $ICONS"
           for file in $CHANGED_FILES; do
             output_file=$(echo "$file" | sed 's/\.mmd$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
             echo "Processing $file"
-            npx mmdc -i "$file" -o "$output_file" --icons $ICONS --puppeteerConfigFile puppeteer-config.json
+            npx mmdc -i "$file" -o "$output_file" --iconPacks $ICONS --puppeteerConfigFile puppeteer-config.json
           done
         else
           echo "No Mermaid files changed"
