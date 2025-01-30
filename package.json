@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "gen": "mmdc -i ./docs/*.mmd --iconPacks '@iconify-json/logos' '@iconify-json/mdi'"
+    "gen": "mmdc -i ./docs/*.mmd --iconPacks \"@iconify-json/logos\" '@iconify-json/mdi'"
   },
   "keywords": [],
   "author": "",
