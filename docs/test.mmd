@@ -5,8 +5,8 @@ architecture-beta
     service disk1(logos:aws-glacier)[d1] in api
     service disk2(logos:aws-s3)[d2] in api
     service server(logos:aws-ec2)[s] in api
-    service alert(mdi:alert-octagram)[al] in api
-
+    service alert(mdi:alert-octagram)[a] in api
+    
     db:L -- R:server
     disk1:T -- B:server
     disk2:T -- B:db
