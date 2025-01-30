@@ -1,6 +1,7 @@
 name: Generate Mermaid Diagrams
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - '**.mmd'
