@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - '**.mmd'
+      - '**.md'
       - '.github/workflows/gen-svg.yml'
 
 jobs:
