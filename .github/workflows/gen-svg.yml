@@ -14,7 +14,7 @@ jobs:
     permissions:
       contents: write
     env:
-      ICON_PACKAGES: '["@iconify-json/logos", "@iconify-json/mdi"]'
+      ICON_PACKAGES: '"@iconify-json/logos" "@iconify-json/mdi"'
     
     steps:
     - name: Checkout repository
@@ -22,7 +22,6 @@ jobs:
     
     - name: Get changed files
       id: changed-files
-      #uses: technote-space/get-diff-action@v6
       uses: tj-actions/changed-files@v45
       with:
         files: |
@@ -44,20 +43,16 @@ jobs:
         CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
 
       run: |
-        ICON_PACKAGES=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '.[]' | tr '\n' ' ')
-
         echo "Generating diagrams for changed files: $CHANGED_FILES"
-        echo "with icons for archtecture diagrams: $ICON_PACKAGES"
+        echo "with icons for archtecture diagrams: ${{env.ICON_PACKAGES}}"
         for file in ${CHANGED_FILES}; do
           output_file=$(echo "$file" | sed 's/\.\(mmd\|md\)$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
           echo "Processing $file"
-          npx mmdc -i "$file" -o "$output_file" --iconPacks "$ICON_PACKAGES" --puppeteerConfigFile puppeteer-config.json
+          npx mmdc -i "$file" -o "$output_file" --iconPacks ${{env.ICON_PACKAGES}} --puppeteerConfigFile puppeteer-config.json
 
         done
 
-    # - name: Generate Diagrams with md file
-    #   run: npx mmdc -i docs/test.md -o docs/auto_generated/test.svg --iconPacks "@iconify-json/logos" "@iconify-json/mdi" --puppeteerConfigFile puppeteer-config.json
     - name: Auto Commit
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
