@@ -44,17 +44,15 @@ jobs:
         CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
 
       run: |
-        #ICONS_OPTION=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | map("\"" + . + "\"") | join(" ")')
-        ICON_PACKS=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '.[]' | tr '\n' ' ')
+        ICON_PACKAGES=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '.[]' | tr '\n' ' ')
 
         echo "Generating diagrams for changed files: $CHANGED_FILES"
-        echo "with icons for archtecture diagrams: $ICON_PACKS"
+        echo "with icons for archtecture diagrams: $ICON_PACKAGES"
         for file in ${CHANGED_FILES}; do
           output_file=$(echo "$file" | sed 's/\.\(mmd\|md\)$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
           echo "Processing $file"
-          echo "exec command: npx mmdc -i $file -o $output_file --iconPacks $ICON_PACKS --puppeteerConfigFile puppeteer-config.json"
-          npx mmdc -i "$file" -o "$output_file" --iconPacks "$ICON_PACKS" --puppeteerConfigFile puppeteer-config.json
+          npx mmdc -i "$file" -o "$output_file" --iconPacks "$ICON_PACKAGES" --puppeteerConfigFile puppeteer-config.json
 
         done
 
