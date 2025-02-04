@@ -54,6 +54,9 @@ jobs:
           echo "No Mermaid files changed"
           exit 0
         fi
+
+    - name: Generate Diagrams with md file
+      run: npx mmdc -i ./docs/*.md -o ./docs/*.svg --iconPacks '@iconify-json/logos' '@iconify-json/mdi'
     
     - name: Auto Commit
       uses: stefanzweifel/git-auto-commit-action@v5
