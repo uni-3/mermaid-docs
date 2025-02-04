@@ -54,7 +54,8 @@ jobs:
 
           echo "Processing $file"
           echo "exec command: npx mmdc -i $file -o $output_file --iconPacks $ICONS_OPTION --puppeteerConfigFile puppeteer-config.json"
-          npx mmdc -i "$file" -o "$output_file" --iconPacks "$ICONS_OPTION" --puppeteerConfigFile puppeteer-config.json
+          npx mmdc -i "$file" -o "$output_file" --iconPacks $ICONS_OPTION --puppeteerConfigFile puppeteer-config.json
+
         done
 
     # - name: Generate Diagrams with md file
