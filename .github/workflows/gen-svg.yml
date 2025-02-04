@@ -14,7 +14,7 @@ jobs:
     permissions:
       contents: write
     env:
-      ICON_PACKAGES: '["@iconify-json/logos", "@iconify-json/mdi"]'
+      ICON_PACKAGES: '"@iconify-json/logos" "@iconify-json/mdi"'
     
     steps:
     - name: Checkout repository
@@ -45,7 +45,7 @@ jobs:
 
       run: |
         #ICONS_OPTION=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | map("\"" + . + "\"") | join(" ")')
-        ICONS_OPTION=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '.[] |"\"" + . + "\""' | tr '\n' ' ')
+        #ICONS_OPTION=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '.[] | "\"" + . + "\""' | tr '\n' ' ')
 
         echo "Generating diagrams for changed files: $CHANGED_FILES"
         echo "with icons for archtecture diagrams: $ICONS_OPTION"
@@ -53,8 +53,8 @@ jobs:
           output_file=$(echo "$file" | sed 's/\.\(mmd\|md\)$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
           echo "Processing $file"
-          echo "exec command: npx mmdc -i $file -o $output_file --iconPacks $ICONS_OPTION --puppeteerConfigFile puppeteer-config.json"
-          npx mmdc -i "$file" -o "$output_file" --iconPacks $ICONS_OPTION --puppeteerConfigFile puppeteer-config.json
+          echo "exec command: npx mmdc -i $file -o $output_file --iconPacks ${{env.ICONS_PACKAGES}} --puppeteerConfigFile puppeteer-config.json"
+          npx mmdc -i "$file" -o "$output_file" --iconPacks ${{env.ICONS_PACKAGES}} --puppeteerConfigFile puppeteer-config.json
 
         done
 
