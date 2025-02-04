@@ -45,7 +45,7 @@ jobs:
 
       run: |
         #ICONS_OPTION=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | map("\"" + . + "\"") | join(" ")')
-        ICONS_PACKS=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '.[]' | tr '\n' ' ')
+        ICON_PACKS=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '.[]' | tr '\n' ' ')
 
         echo "Generating diagrams for changed files: $CHANGED_FILES"
         echo "with icons for archtecture diagrams: $ICONS_PACKS"
