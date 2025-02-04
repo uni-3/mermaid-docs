@@ -49,7 +49,7 @@ jobs:
             output_file=$(echo "$file" | sed 's/\.mmd$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
             echo "Processing $file"
-            npx mmdc -i "$file" -o "$output_file" --iconPacks $ICONS_OPTION --puppeteerConfigFile puppeteer-config.json
+            npx mmdc -i "$file" -o "$output_file" --iconPacks "$ICONS_OPTION" --puppeteerConfigFile puppeteer-config.json
           done
         else
           echo "No Mermaid files changed"
@@ -57,7 +57,7 @@ jobs:
         fi
 
     - name: Generate Diagrams with md file
-      run: npx mmdc -i ./docs/*.md -o ./docs/auto_generated/test.svg --iconPacks '@iconify-json/logos' '@iconify-json/mdi' --puppeteerConfigFile puppeteer-config.json
+      run: npx mmdc -i ./docs/*.md -o ./docs/auto_generated/test.svg --iconPacks "@iconify-json/logos" "@iconify-json/mdi" --puppeteerConfigFile puppeteer-config.json
     
     - name: Auto Commit
       uses: stefanzweifel/git-auto-commit-action@v5
