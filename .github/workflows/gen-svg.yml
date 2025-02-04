@@ -46,7 +46,7 @@ jobs:
         ICONS_OPTION=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | map("\"" + . + "\"") | join(" ")')
         CHANGED_FILES=${{ steps.changed-markdown-files.outputs.all_changed_files }}
 
-        if [ -n "$CHANGED_FILES" ]; then
+        #if [ -n "$CHANGED_FILES" ]; then
           echo "Generating diagrams for changed files: $CHANGED_FILES"
           echo "with icons for archtecture diagrams: $ICONS_OPTION"
           for file in ${CHANGED_FILES}; do
@@ -56,10 +56,10 @@ jobs:
             echo "exec command: npx mmdc -i $file -o $output_file --iconPacks $ICONS_OPTION --puppeteerConfigFile puppeteer-config.json"
             npx mmdc -i "$file" -o "$output_file" --iconPacks "$ICONS_OPTION" --puppeteerConfigFile puppeteer-config.json
           done
-        else
-          echo "No Mermaid files changed"
-          exit 0
-        fi
+        #else
+        #  echo "No Mermaid files changed"
+        #  exit 0
+        #fi
 
     - name: Generate Diagrams with md file
       run: npx mmdc -i ./docs/test.md -o ./docs/auto_generated/test.svg --iconPacks "@iconify-json/logos" "@iconify-json/mdi" --puppeteerConfigFile puppeteer-config.json
