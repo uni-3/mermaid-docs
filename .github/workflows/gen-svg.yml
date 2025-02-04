@@ -45,10 +45,10 @@ jobs:
 
       run: |
         #ICONS_OPTION=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | map("\"" + . + "\"") | join(" ")')
-        ICONS_PACKS=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '.[]' | tr '\n' ' ')
+        ICONS_PACKS=$(echo ${{ env.ICON_PACKAGES }} | jq -r '.[]' | tr '\n' ' ')
 
         echo "Generating diagrams for changed files: $CHANGED_FILES"
-        echo "with icons for archtecture diagrams: $ICONS_OPTION"
+        echo "with icons for archtecture diagrams: $ICONS_PACKS"
         for file in ${CHANGED_FILES}; do
           output_file=$(echo "$file" | sed 's/\.\(mmd\|md\)$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
