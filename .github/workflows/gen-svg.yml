@@ -54,7 +54,7 @@ jobs:
 
           echo "Processing $file"
           echo "exec command: npx mmdc -i $file -o $output_file --iconPacks $ICON_PACKS --puppeteerConfigFile puppeteer-config.json"
-          npx mmdc -i "$file" -o "$output_file" --iconPacks $ICON_PACKS --puppeteerConfigFile puppeteer-config.json
+          npx mmdc -i "$file" -o "$output_file" --iconPacks "$ICON_PACKS" --puppeteerConfigFile puppeteer-config.json
 
         done
 
