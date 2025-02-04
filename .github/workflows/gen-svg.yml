@@ -57,7 +57,7 @@ jobs:
         fi
 
     - name: Generate Diagrams with md file
-      run: npx mmdc -i ./docs/*.md -o ./docs/test.svg --iconPacks '@iconify-json/logos' '@iconify-json/mdi' --puppeteerConfigFile puppeteer-config.json
+      run: npx mmdc -i ./docs/*.md -o ./docs/auto_generated/test.svg --iconPacks '@iconify-json/logos' '@iconify-json/mdi' --puppeteerConfigFile puppeteer-config.json
     
     - name: Auto Commit
       uses: stefanzweifel/git-auto-commit-action@v5
