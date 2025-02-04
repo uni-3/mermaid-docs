@@ -53,7 +53,7 @@ jobs:
           output_file=$(echo "$file" | sed 's/\.\(mmd\|md\)$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
           echo "Processing $file"
-          echo "exec command: npx mmdc -i $file -o $output_file --iconPacks ${{env.ICON_PACKAGES}} --puppeteerConfigFile puppeteer-config.json"
+          echo "exec command: npx mmdc -i $file -o $output_file --iconPacks $ICON_PACKS}} --puppeteerConfigFile puppeteer-config.json"
           npx mmdc -i "$file" -o "$output_file" --iconPacks $ICON_PACKS --puppeteerConfigFile puppeteer-config.json
 
         done
