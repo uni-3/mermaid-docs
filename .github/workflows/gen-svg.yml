@@ -25,7 +25,7 @@ jobs:
       uses: technote-space/get-diff-action@v6
       with:
         PATTERNS: |
-          **/*.mmd
+          **/*.(mmd|md)
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -46,7 +46,7 @@ jobs:
           echo "Generating diagrams for changed files: $CHANGED_FILES"
           echo "with icons for archtecture diagrams: $ICONS_OPTION"
           for file in $CHANGED_FILES; do
-            output_file=$(echo "$file" | sed 's/\.mmd$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
+            output_file=$(echo "$file" | sed 's/\.(mmd|md$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
             echo "Processing $file"
             echo "exec command: npx mmdc -i $file -o $output_file --iconPacks $ICONS_OPTION --puppeteerConfigFile puppeteer-config.json"
@@ -57,8 +57,8 @@ jobs:
           exit 0
         fi
 
-    - name: Generate Diagrams with md file
-      run: npx mmdc -i ./docs/*.md -o ./docs/auto_generated/test.svg --iconPacks "@iconify-json/logos" "@iconify-json/mdi" --puppeteerConfigFile puppeteer-config.json
+    # - name: Generate Diagrams with md file
+    #   run: npx mmdc -i ./docs/*.md -o ./docs/auto_generated/test.svg --iconPacks "@iconify-json/logos" "@iconify-json/mdi" --puppeteerConfigFile puppeteer-config.json
     
     - name: Auto Commit
       uses: stefanzweifel/git-auto-commit-action@v5
