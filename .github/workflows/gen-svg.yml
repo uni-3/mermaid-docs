@@ -44,7 +44,7 @@ jobs:
       # if: env.GIT_DIFF_FILTERED
       run: |
         ICONS_OPTION=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | map("\"" + . + "\"") | join(" ")')
-        CHANGED_FILES=${{ steps.changed-markdown-files.outputs.all_changed_files }}
+        CHANGED_FILES=${{ steps.changed-files.outputs.all_changed_files }}
 
         #if [ -n "$CHANGED_FILES" ]; then
           echo "Generating diagrams for changed files: $CHANGED_FILES"
