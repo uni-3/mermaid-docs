@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - '**.mmd'
+      - '**.md'
       - '.github/workflows/gen-svg.yml'
 
 jobs:
@@ -13,7 +14,7 @@ jobs:
     permissions:
       contents: write
     env:
-      ICON_PACKAGES: '["@iconify-json/logos", "@iconify-json/mdi"]'
+      ICON_PACKAGES: '"@iconify-json/logos" "@iconify-json/mdi"'
     
     steps:
     - name: Checkout repository
@@ -21,10 +22,11 @@ jobs:
     
     - name: Get changed files
       id: changed-files
-      uses: technote-space/get-diff-action@v6
+      uses: tj-actions/changed-files@v45
       with:
-        PATTERNS: |
+        files: |
           **/*.mmd
+          **/*.md
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -32,32 +34,27 @@ jobs:
         node-version: '20'
     
     - name: Install dependencies
+      if: steps.changed-files.outputs.any_changed == 'true'
       run: npm ci
-      if: env.GIT_DIFF_FILTERED
     
     - name: Generate Diagrams
-      # env:
-      #   CHANGED_FILES: ${{ steps.changed-files.outputs.files }}
+      if: steps.changed-files.outputs.any_changed == 'true'
+      env:
+        CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+
       run: |
-        ICONS=$(echo '${{ env.ICON_PACKAGES }}' | jq -r '. | join(" ")' | sed 's/^/--iconPacks /')
-        CHANGED_FILES=${{ env.GIT_DIFF_FILTERED }}
+        echo "Generating diagrams for changed files: $CHANGED_FILES"
+        echo "with icons for archtecture diagrams: ${{env.ICON_PACKAGES}}"
+        for file in ${CHANGED_FILES}; do
+          output_file=$(echo "$file" | sed 's/\.\(mmd\|md\)$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
-        if [ -n "CHANGED_FILES" ]; then
-          echo "Generating diagrams for changed files: $CHANGED_FILES"
-          for file in $CHANGED_FILES; do
-            output_file=$(echo "$file" | sed 's/\.mmd$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
+          echo "Processing $file"
+          npx mmdc -i "$file" -o "$output_file" --iconPacks ${{env.ICON_PACKAGES}} --puppeteerConfigFile puppeteer-config.json
 
-            echo "Processing $file"
-            npx mmdc -i "$file" -o "$output_file" --icons $ICONS --puppeteerConfigFile puppeteer-config.json
-          done
-        else
-          echo "No Mermaid files changed"
-          exit 0
-        fi
-    
+        done
+
     - name: Auto Commit
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: Generate Mermaid diagrams for changed files
         file_pattern: '**/*.svg'
-        pull_style: rebase
