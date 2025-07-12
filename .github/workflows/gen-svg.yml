@@ -30,11 +30,11 @@ jobs:
           **/*.mmd
           **/*.md
     
-    - name: Pull mermaid cli Image
+    - name: Pull mermaid cli image
       if: steps.changed-files.outputs.any_changed == 'true'
       run: docker pull ${{ env.MERMAID_IMAGE }}
 
-    - name: Generate Diagrams
+    - name: Generate diagrams
       if: steps.changed-files.outputs.any_changed == 'true'
       env:
         CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
@@ -57,7 +57,7 @@ jobs:
 
         done
 
-    - name: Auto Commit
+    - name: Auto commit
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: Generate Mermaid diagrams for changed files
