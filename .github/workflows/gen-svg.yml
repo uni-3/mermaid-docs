@@ -28,15 +28,6 @@ jobs:
           **/*.mmd
           **/*.md
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    
-    # - name: Install dependencies
-    #   if: steps.changed-files.outputs.any_changed == 'true'
-    #   run: npm ci
-    
     - name: Generate Diagrams
       if: steps.changed-files.outputs.any_changed == 'true'
       env:
@@ -52,7 +43,7 @@ jobs:
           #npx mmdc -i "$file" -o "$output_file" --iconPacks ${{env.ICON_PACKAGES}} --puppeteerConfigFile puppeteer-config.json
           docker run --rm -t \
               -v "${{ github.workspace }}:/data" \
-              -w "/app" \
+              -w "/data" \
               docker.io/minlag/mermaid-cli:${{env.MERMAIDCLI_VERSION}} \
               -i "$file" \
               -o "$output_file" \
