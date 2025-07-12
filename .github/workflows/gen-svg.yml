@@ -51,7 +51,7 @@ jobs:
           echo "Processing $file"
           #npx mmdc -i "$file" -o "$output_file" --iconPacks ${{env.ICON_PACKAGES}} --puppeteerConfigFile puppeteer-config.json
           docker run --rm -t \
-              -v "${{ github.workspace }}:/app" \
+              -v "${{ github.workspace }}:/data" \
               -w "/app" \
               docker.io/minlag/mermaid-cli:${{env.MERMAIDCLI_VERSION}} \
               -i "$file" \
