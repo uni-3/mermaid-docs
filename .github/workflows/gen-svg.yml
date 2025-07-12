@@ -57,7 +57,7 @@ jobs:
               -i "$file" \
               -o "$output_file" \
               --iconPacks ${{env.ICON_PACKAGES}} \
-              --puppeteerConfigFile puppeteer-config.json
+              --puppeteerConfigFile /puppeteer-config.json
 
         done
 
