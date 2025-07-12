@@ -45,7 +45,6 @@ jobs:
           output_file=$(echo "$file" | sed 's/\.\(mmd\|md\)$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
 
           echo "Processing $file"
-          #npx mmdc -i "$file" -o "$output_file" --iconPacks ${{env.ICON_PACKAGES}} --puppeteerConfigFile puppeteer-config.json
           docker run --rm -t \
               -v "${{ github.workspace }}:/data" \
               -w "/data" \
