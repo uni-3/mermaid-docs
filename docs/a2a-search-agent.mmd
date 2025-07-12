@@ -2,10 +2,7 @@ graph TB
     subgraph "Agent and Client"
         %% Client and Server
         Client["Client"] <-->|"Send Request/Response"| Server["Server"]
-        %%Client["Client"] --- Server["Server"]
-        Server --- |"execure"| SearchAgent
-        %%SearchAgent -->|"Return Result"| Server
-        %%Server -->|"Send Response"| Client
+        Server --- |"execute"| SearchAgent
 
         %% SearchAgent
         SearchAgent["SearchAgent"]
