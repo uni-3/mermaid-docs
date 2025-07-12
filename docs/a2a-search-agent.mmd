@@ -1,0 +1,37 @@
+graph TB
+    subgraph "Agent and Client"
+        %% Client and Server
+        Client["Client"] <-->|"Send Request/Response"| Server["Server"]
+        Server --- |"execute"| SearchAgent
+
+        %% SearchAgent
+        SearchAgent["SearchAgent"]
+
+        %% Tools Subgraph
+        subgraph Tools["Tools"]
+            classDef tools fill:#e0e0e0,stroke:#999,stroke-width:1px,stroke-dasharray: 5 5
+            class Tools tools
+
+            KeywordExtractor["KeywordExtractor"]
+            GoogleSearch["GoogleSearch"]
+            ArticleFetcher["ArticleFetcher"]
+            Summarizer["Summarizer"]
+        end
+
+        %% Connections
+        SearchAgent -->|"Extract Keywords"| KeywordExtractor
+        SearchAgent -->|"Search Web"| GoogleSearch
+        SearchAgent -->|"Fetch Articles"| ArticleFetcher
+        SearchAgent -->|"Summarize Content"| Summarizer
+    end
+
+    %% Styling
+    classDef agent fill:#d9b3ff,stroke:#800080,stroke-width:2px
+    classDef tool fill:#bbf,stroke:#333,stroke-width:2px
+    classDef client fill:#bfb,stroke:#333,stroke-width:2px
+    classDef server fill:#fbb,stroke:#333,stroke-width:2px
+
+    class SearchAgent agent
+    class KeywordExtractor,GoogleSearch,ArticleFetcher,Summarizer tool
+    class Client client
+    class Server server
