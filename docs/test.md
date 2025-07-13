@@ -1,4 +1,4 @@
-architecture example
+- architecture iconify example
 
 ```mermaid
 architecture-beta
