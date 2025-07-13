@@ -2,8 +2,11 @@
 .DEFAULT_GOAL := help
 
 gen:
-	docker run --rm -v $(PWD):/data -w /data docker.io/minlag/mermaid-cli:latest \
-	mmdc -i ./docs/*.mmd --iconPacks '@iconify-json/logos' '@iconify-json/mdi'
+	for file in docs/*.mmd docs/*.md; do \
+		docker run --rm -v "$(PWD):/data" -w /data docker.io/minlag/mermaid-cli:latest \
+		--input "/data/$$file" --output "/data/$${file%.*}.svg" \
+		--iconPacks "@iconify-json/logos" "@iconify-json/mdi"; \
+	done
 
 help:
 	@echo "Available commands:"
