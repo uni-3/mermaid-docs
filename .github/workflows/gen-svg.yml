@@ -15,8 +15,6 @@ jobs:
       contents: write
     env:
       ICON_PACKAGES: '"@iconify-json/logos" "@iconify-json/mdi"'
-      # 使用するDockerイメージ
-      MERMAID_IMAGE: docker.io/minlag/mermaid-cli:latest
     
     steps:
     - name: Checkout repository
@@ -30,31 +28,12 @@ jobs:
           **/*.mmd
           **/*.md
     
-    - name: Pull mermaid cli image
+    - name: Generate Mermaid Diagrams
       if: steps.changed-files.outputs.any_changed == 'true'
-      run: docker pull ${{ env.MERMAID_IMAGE }}
-
-    - name: Generate diagrams
-      if: steps.changed-files.outputs.any_changed == 'true'
-      env:
-        CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-      run: |
-        echo "Generating diagrams for changed files: $CHANGED_FILES"
-        echo "with icons for archtecture diagrams: ${{env.ICON_PACKAGES}}"
-        for file in ${CHANGED_FILES}; do
-          output_file=$(echo "$file" | sed 's/\.\(mmd\|md\)$/.svg/' | sed 's/^docs\//docs\/auto_generated\//')
-
-          echo "Processing $file"
-          docker run --rm -t \
-              -v "${{ github.workspace }}:/data" \
-              -w "/data" \
-              ${{ env.MERMAID_IMAGE}} \
-              -i "$file" \
-              -o "$output_file" \
-              --iconPacks ${{env.ICON_PACKAGES}} \
-              --puppeteerConfigFile /puppeteer-config.json
-
-        done
+      uses: uni-3/render-mermaid-svg@v1
+      with:
+        input-files: ${{ steps.changed-files.outputs.all_changed_files }}
+        icon-packages: ${{ env.ICON_PACKAGES }}
 
     - name: Auto commit
       uses: stefanzweifel/git-auto-commit-action@v5
