@@ -6,7 +6,7 @@ architecture-beta
     group pipeline(mdi:cloud-outline)[orchestration]
 
     service prefect(mdi:alpha-p-circle)[prefect] in pipeline
-    service dlt(mdi:alpha-d-circle)[dlt_data load tool] in pipeline
+    service dlt(mdi:alpha-d-circle)[dlt data load tool] in pipeline
 
     bq1:L -- R:dlt
     dbt:L -- R:prefect
