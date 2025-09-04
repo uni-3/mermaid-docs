@@ -29,4 +29,3 @@ architecture-beta
     service bq2(mdi:database-outline)[bigquery embedding] in dwh
     service dbt(logos:dbt-icon)[dbt] in dwh
 ```
-
