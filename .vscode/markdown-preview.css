@@ -1,0 +1,15 @@
+/* Custom styles for Markdown Preview */
+body {
+    background-color: #ffffff; /* White background */
+    color: #333333; /* Dark text for contrast */
+}
+
+.vscode-light {
+    /* Specific overrides for light theme if needed */
+}
+
+.vscode-dark {
+    /* Specific overrides for dark theme if needed */
+    background-color: #ffffff;
+    color: #333333;
+}
