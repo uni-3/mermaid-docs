@@ -1,7 +1,7 @@
 - before
 
 ```mermaid
-graph LR
+graph TB
 
 subgraph Flow_Chat [【Before】やり取りベース（依存型）]
     subgraph Client [申請者]
@@ -52,7 +52,7 @@ end
 
 
 ```mermaid
-graph LR
+graph TB
 subgraph Flow_Code [【After】コードベース（自律型）]
     subgraph User [申請者]
         direction TB
