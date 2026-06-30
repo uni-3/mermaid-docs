@@ -3,7 +3,8 @@
 
 gen:
 	for file in docs/*.mmd docs/*.md; do \
-		docker run --rm -v "$(PWD):/data" -w /data docker.io/minlag/mermaid-cli:latest \
+		[ -f "$$file" ] || continue; \
+		docker run --rm -u "$$(id -u):$$(id -g)" -e HOME=/tmp -v "$(PWD):/data" -w /data docker.io/minlag/mermaid-cli:latest \
 		--input "/data/$$file" --output "/data/$${file%.*}.svg" \
 		--iconPacks "@iconify-json/logos" "@iconify-json/mdi"; \
 	done

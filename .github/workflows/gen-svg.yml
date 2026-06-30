@@ -8,6 +8,11 @@ on:
       - '**.md'
       - '.github/workflows/gen-svg.yml'
 
+# Cancel superseded runs on the same PR.
+concurrency:
+  group: gen-svg-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   generate-diagrams:
     runs-on: ubuntu-latest
@@ -20,7 +25,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
+        # Commit generated SVGs back onto the PR branch (not main).
         ref: ${{ github.head_ref }}
+        # Full history so changed-files can diff against the base.
+        fetch-depth: 0
 
     - name: Get changed files
       id: changed-files
